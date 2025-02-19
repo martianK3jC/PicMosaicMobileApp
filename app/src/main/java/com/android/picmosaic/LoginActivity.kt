@@ -2,58 +2,75 @@ package com.android.picmosaic
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.button.MaterialButton
 
 class LoginActivity : Activity() {
+    private lateinit var emailEditText: TextInputEditText
+    private lateinit var passwordEditText: TextInputEditText
+    private lateinit var loginButton: MaterialButton
+    private lateinit var sharedPreferences: SharedPreferences
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_page)
 
-        val emailEditText = findViewById<EditText>(R.id.emailEditText)
-        val passwordEditText = findViewById<EditText>(R.id.passwordEditText)
-        val loginButton = findViewById<Button>(R.id.loginButton)
+        // Initialize views
+        emailEditText = findViewById(R.id.emailEditText)
+        passwordEditText = findViewById(R.id.passwordEditText)
+        loginButton = findViewById(R.id.loginButton)
 
-        //if the edit texts are empty when you click the login button, it will display an error message
-        loginButton.setOnClickListener{
-            val username = emailEditText.text
-            val password = passwordEditText.text
 
-            if(username.isNullOrBlank() && password.isNullOrBlank()){
-                Toast.makeText(this, "Username and Password cannot be empty", Toast.LENGTH_LONG).show()
+
+        // Initialize SharedPreferences
+        sharedPreferences = getSharedPreferences("PicMosaic", MODE_PRIVATE)
+
+        // Check if user is already logged in
+        val currentUserEmail = sharedPreferences.getString("current_user_email", null)
+        if (currentUserEmail != null) {
+            navigateToHome()
+            return
+        }
+
+        // Handle login button click
+        loginButton.setOnClickListener {
+            val email = emailEditText.text?.toString()?.trim() ?: ""
+            val password = passwordEditText.text?.toString()?.trim() ?: ""
+
+            if (email.isNullOrBlank() && password.isNullOrBlank()) {
+                Toast.makeText(this, "Please enter both email and password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }else if(username.isNullOrBlank()){
-                Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_LONG).show()
+            }else if(password.isNullOrBlank()){
+                Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
-            }else{
-                Toast.makeText(this, "Password cannot be empty", Toast.LENGTH_LONG).show()
+            } else if(email.isNullOrBlank()){
+                Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            //this line will not be executed if the username or/and password will be blank
 
-            //if its false
-            //You validate the username and password according to you set username and password
-            //This is from the server data
-            //Or you can have it static
+            // Validate credentials
+            if (DummyUserData.validateCredentials(email, password)) {
+                // Save login state
+                sharedPreferences.edit()
+                    .putString("current_user_email", email)
+                    .apply()
 
-            val intent = Intent(this, DummyHomeActivity::class.java)
-            startActivity(intent)
-
-
+                navigateToHome()
+            } else {
+                Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show()
+            }
         }
-//        linking sign_up id
-        val signupButton = findViewById<Button>(R.id.signupButton)
-        signupButton.setOnClickListener{
-            Log.e("CSIT284", "PicMosaic")
-            Toast.makeText(this, "Opening register page", Toast.LENGTH_LONG).show()
+    }
 
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
+    private fun navigateToHome() {
+        val intent = Intent(this, DummyHomeActivity::class.java)
+        startActivity(intent)
+        finish() // Closes login activity
     }
 }

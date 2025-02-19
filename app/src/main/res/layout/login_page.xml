@@ -57,16 +57,14 @@
                     android:hint="Email"
                     android:layout_margin="30dp"
                     app:boxStrokeWidth="2dp"
-                    app:hintTextColor="#ACA7A7"
-                    app:boxStrokeColor="@color/text_input_border_color"
-                    app:boxCornerRadiusTopStart="5dp"
-                    app:boxCornerRadiusTopEnd="5dp"
-                    app:boxCornerRadiusBottomStart="5dp"
-                    app:cursorColor="#48A6A7"
-                    app:boxCornerRadiusBottomEnd="5dp">
+                    app:hintTextColor="#48A6A7"
+                    app:boxStrokeColor="#48A6A7"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-
-                <!-- input email address -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailEditText"
                     android:layout_width="match_parent"
@@ -86,30 +84,27 @@
                     android:layout_marginRight="30dp"
                     android:textColorHint="#ACA7A7"
                     android:hint="Password"
-
-                    app:boxCornerRadiusBottomEnd="5dp"
-                    app:boxCornerRadiusBottomStart="5dp"
-                    app:boxCornerRadiusTopEnd="5dp"
-                    app:boxCornerRadiusTopStart="5dp"
-
-                    app:hintTextColor="#ACA7A7"
-                    app:boxStrokeColor="@color/text_input_border_color"
+                    app:boxCornerRadiusBottomEnd="12dp"
+                    app:boxCornerRadiusBottomStart="12dp"
+                    app:boxCornerRadiusTopEnd="12dp"
+                    app:boxCornerRadiusTopStart="12dp"
+                    app:hintTextColor="#48A6A7"
+                    app:boxStrokeColor="#48A6A7"
                     app:boxStrokeWidth="2dp"
-                    app:cursorColor="#48A6A7"
                     app:endIconMode="password_toggle"
-                    >
+                    app:endIconTint="#48A6A7"
+                    app:passwordToggleEnabled="true"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <!-- Input password -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword|textVisiblePassword"
+                    android:inputType="textPassword"
                     android:textColorHint="#ACA7A7"
-                    app:helperTextTextColor="#48A6A7"
-                    app:cursorColor="#48A6A7"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/poppins_regular"
                     />
-
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Forgot Password?-->
@@ -134,7 +129,7 @@
                     android:layout_marginLeft="90dp"
                     android:text="Login"
                     android:textSize="16sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/white"
                     app:cornerRadius="12dp"
                     android:backgroundTint="#48A6A7"/>
 

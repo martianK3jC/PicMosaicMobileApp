@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="WELCOME TO PICMOSAIC!"
-        android:layout_margin="20dp"
+        android:layout_marginVertical="100dp"
+        android:layout_marginHorizontal="20dp"
         android:fontFamily="@font/poppins_bold"
         android:textColor="#48A6A7"
         android:textSize="50dp"
@@ -25,13 +26,6 @@
         android:id="@+id/settingsButton"
         />
 
-    <Button
-        android:id="@+id/profileButton"
-        android:layout_margin="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
-        />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
